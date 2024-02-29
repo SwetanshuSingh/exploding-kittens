@@ -22,6 +22,11 @@ const deckSlice = createSlice({
             if(actions.payload.name === 'cat-card'){
                 state.deckDrawn = state.deckDrawn.filter(card => card.id !== actions.payload.id);
                 toast.success("Yayy! Cat Card, Find all to win the game");
+
+                if(state.deckDrawn.length == 0){
+                    state.gameWon = true;
+                    state.isGameOver = true;
+                }
             }
 
             //Logic for Exploding Kitten Card
@@ -32,9 +37,15 @@ const deckSlice = createSlice({
                     toast('Phew! Bomb Defused', {
                         icon: '👏',
                       });
+
+                      if(state.deckDrawn.length == 0){
+                        state.gameWon = true;
+                        state.isGameOver = true;
+                    }  
                 }
                 else{
-                    state.isGameOver = true
+                    state.gameWon = false;
+                    state.isGameOver = true;
                     state.deckDrawn = [];
                     toast.error("Whoops, you got exploded")
                 }
@@ -53,12 +64,10 @@ const deckSlice = createSlice({
                 toast('You got a Defuse Card!', {
                     icon: '👏',
                   });
-            }
-
-            // Write logic after winning game
-            if(state.deckDrawn.length === 0){
-                state.isGameOver = true;
-                state.gameWon = true
+                  if(state.deckDrawn.length == 0){
+                    state.gameWon = true;
+                    state.isGameOver = true;
+                }  
             }
         },
 

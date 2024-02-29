@@ -7,7 +7,8 @@ const GameResult = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const gameWon = useSelector((state) => {state.deck.gameWon});
+    const gameWon = useSelector((state) => state.deck.gameWon);
+    console.log(gameWon);
 
     const handleExit = () => {
         dispatch(exitGame());

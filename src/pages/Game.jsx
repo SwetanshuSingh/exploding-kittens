@@ -1,14 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
-import { cardActions, drawDeck } from "../redux/slices/deck";
+import { cardActions, drawDeck, exitGame } from "../redux/slices/deck";
 import GameResult from "../components/GameResult";
+import { useNavigate } from "react-router-dom";
 
 const Game = () => {
 
-  // const count = useSelector((state) => state.counter);
   const deck = useSelector((state) => state.deck.deckDrawn)
   const defuseCardsOwned = useSelector((state) => state.deck.defuseCardsOwned);
   const isGameOver = useSelector((state) => state.deck.isGameOver);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleExit = () => {
+    dispatch(exitGame());
+    navigate("/");
+}
 
   return (
     <div className="w-full h-[100vh] flex flex-col gap-8 items-center justify-center font-serif">
@@ -22,7 +28,11 @@ const Game = () => {
         })}
       </div>
       
-      <button className="bg-black text-white rounded-lg px-3 py-2" onClick={() => {dispatch(drawDeck())}}>Start Game</button>
+      <div className="flex gap-5">
+        {deck.length === 0 ? <button className="bg-black text-white rounded-lg px-3 py-2" onClick={() => {dispatch(drawDeck())}}>Start Game</button> : null}
+        <button className="bg-black text-white rounded-lg px-3 py-2" onClick={handleExit}>Exit Game</button>
+      </div>
+
 
       {isGameOver ? <GameResult /> : null}
     </div>
