@@ -5,10 +5,12 @@ const App = () => {
 
   // const count = useSelector((state) => state.counter);
   const deck = useSelector((state) => state.deck.deckDrawn)
+  const defuseCardsOwned = useSelector((state) => state.deck.defuseCardsOwned);
   const dispatch = useDispatch();
 
   return (
-    <div className="w-full h-[100vh] flex flex-col gap-8 items-center justify-center">
+    <div className="w-full h-[100vh] flex flex-col gap-8 items-center justify-center font-serif">
+      <h2 className="text-xl font-medium">Defuse Card owned : {defuseCardsOwned}</h2>
       <div className="cards flex gap-4">
         {deck.map((card) => {
           return (
