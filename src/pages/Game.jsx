@@ -1,11 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { cardActions, drawDeck } from "../redux/slices/deck";
+import GameResult from "../components/GameResult";
 
 const Game = () => {
 
   // const count = useSelector((state) => state.counter);
   const deck = useSelector((state) => state.deck.deckDrawn)
   const defuseCardsOwned = useSelector((state) => state.deck.defuseCardsOwned);
+  const isGameOver = useSelector((state) => state.deck.isGameOver);
   const dispatch = useDispatch();
 
   return (
@@ -21,6 +23,8 @@ const Game = () => {
       </div>
       
       <button className="bg-black text-white rounded-lg px-3 py-2" onClick={() => {dispatch(drawDeck())}}>Start Game</button>
+
+      {isGameOver ? <GameResult /> : null}
     </div>
   )
 }
