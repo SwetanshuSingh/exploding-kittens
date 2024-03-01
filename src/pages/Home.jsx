@@ -1,18 +1,28 @@
 import { useState } from "react";
 import { useNavigate }  from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/slices/deck";
 
 const HomePage = () => {
 
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState('');
+    const dispatch = useDispatch();
 
     const handleChange = (evt) => {
         setInputValue(evt.target.value);
     }
 
-    const handleSubmit = (evt) => {
+    const handleSubmit = async(evt, username) => {
         evt.preventDefault();
-        console.log(inputValue);
+        const response = await fetch(`http://localhost:8080/createUser/${username}`,{
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json"
+            }
+        });
+        const data = await response.json();
+        dispatch(setUser(data));
         navigate("/game");
     }
 
@@ -29,11 +39,11 @@ const HomePage = () => {
                 </ul>
             </div>
 
-            <form onSubmit={handleSubmit} action="/" className="flex flex-col gap-5">
+            <form onSubmit={(evt) => {handleSubmit(evt, inputValue)}} action="/" className="flex flex-col gap-5">
                 <h2 className="text-2xl font-medium">Enter you username to play the game!</h2>
                 <div className="flex flex-col gap-4">
                     <input value={inputValue} onChange={handleChange} className="border-2 border-gray-600 rounded-md p-2 outline-none" type="text" placeholder="username..." />
-                    <button onClick={handleSubmit} className="border-2 border-[#353535] hover:bg-[#353535] text-[#353535] hover:text-white transition-colors p-3 rounded-md font-semibold uppercase">Play game</button>
+                    <button onClick={(evt) => {handleSubmit(evt, inputValue)}} className="border-2 border-[#353535] hover:bg-[#353535] text-[#353535] hover:text-white transition-colors p-3 rounded-md font-semibold uppercase">Play game</button>
                 </div>
             </form>
 

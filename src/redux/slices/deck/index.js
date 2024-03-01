@@ -6,6 +6,7 @@ const deckSlice = createSlice({
     name : 'deck',
     initialState : {
         cards : ['cat-card', 'defuse-card', 'shuffle-card', 'exploding-kitten-card'],
+        user : '',
         deckDrawn : [],
         defuseCardsOwned : 0,
         gameWon : false,
@@ -15,6 +16,10 @@ const deckSlice = createSlice({
         drawDeck : (state) => {
             state.deckDrawn = getRandomCards(state.cards, 5);
             state.defuseCardsOwned = 0;
+        },
+
+        setUser : (state, actions) => {
+            state.user = actions.payload.username;
         },
 
         cardActions : (state, actions) => {
@@ -87,5 +92,5 @@ const deckSlice = createSlice({
     }
 })
 
-export const { drawDeck, cardActions, resetGame, exitGame } = deckSlice.actions;
+export const { drawDeck, cardActions, resetGame, exitGame, setUser } = deckSlice.actions;
 export default deckSlice.reducer;
