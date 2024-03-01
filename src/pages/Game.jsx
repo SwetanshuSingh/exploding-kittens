@@ -22,7 +22,9 @@ const Game = () => {
       setPlayers(data);
     }
 
-    getLeaderBoard();
+    setInterval(() => {
+      getLeaderBoard();
+    }, 8000);
   }, [])
 
   const handleExit = () => {

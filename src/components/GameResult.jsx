@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux";
 import { exitGame, resetGame } from "../redux/slices/deck";
+import { useEffect } from "react";
 
 
 const GameResult = () => {
@@ -8,7 +9,24 @@ const GameResult = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const gameWon = useSelector((state) => state.deck.gameWon);
-    console.log(gameWon);
+    const user = useSelector((state) => state.deck.user);
+
+    useEffect(() => {
+        const increaseScore = async() => {
+            const response = await fetch(`http://localhost:8080/winGame/${user}`,{
+                method : "POST",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            });
+            const data = await response.json();
+            console.log(data);
+        }
+
+        if(gameWon){
+            increaseScore();
+        }
+    }, [gameWon])
 
     const handleExit = () => {
         dispatch(exitGame());
