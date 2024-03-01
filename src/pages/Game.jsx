@@ -17,15 +17,12 @@ const Game = () => {
 
   useEffect(() => {
     const getLeaderBoard = async() => {
-      const response = await fetch("http://localhost:8080/leaderboard");
+      const response = await fetch("https://exploding-kittens-backend-xyi0.onrender.com/leaderboard");
       const data = await response.json();
       setPlayers(data);
     }
-
-    setInterval(() => {
       getLeaderBoard();
-    }, 8000);
-  }, [])
+  }, [isGameOver])
 
   const handleExit = () => {
     dispatch(exitGame());

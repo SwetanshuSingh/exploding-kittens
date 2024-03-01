@@ -15,7 +15,7 @@ const HomePage = () => {
 
     const handleSubmit = async(evt, username) => {
         evt.preventDefault();
-        const response = await fetch(`http://localhost:8080/createUser/${username}`,{
+        const response = await fetch(`https://exploding-kittens-backend-xyi0.onrender.com/createUser/${username}`,{
             method : "POST",
             headers : {
                 "Content-Type" : "application/json"

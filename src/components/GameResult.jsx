@@ -13,7 +13,7 @@ const GameResult = () => {
 
     useEffect(() => {
         const increaseScore = async() => {
-            const response = await fetch(`http://localhost:8080/winGame/${user}`,{
+            const response = await fetch(`https://exploding-kittens-backend-xyi0.onrender.com/winGame/${user}`,{
                 method : "POST",
                 headers : {
                     "Content-Type" : "application/json"
@@ -23,10 +23,10 @@ const GameResult = () => {
             console.log(data);
         }
 
-        if(gameWon){
+        if(gameWon === true){
             increaseScore();
         }
-    }, [gameWon])
+    }, [])
 
     const handleExit = () => {
         dispatch(exitGame());
