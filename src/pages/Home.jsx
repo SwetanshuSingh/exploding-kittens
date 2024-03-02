@@ -47,7 +47,7 @@ const HomePage = () => {
                 <h2 className="text-2xl font-medium">Enter you username to play the game!</h2>
                 <div className="flex flex-col gap-4">
                     <input value={inputValue} onChange={handleChange} className="border-2 border-gray-600 rounded-md p-2 outline-none" type="text" placeholder="username..." />
-                    <button onClick={(evt) => {handleSubmit(evt, inputValue)}} className="border-2 border-[#353535] hover:bg-[#353535] text-[#353535] hover:text-white transition-colors p-3 rounded-md font-semibold uppercase">{loading ? <Loader2 className="animate-spin" /> : "Play Game"}</button>
+                    <button onClick={(evt) => {handleSubmit(evt, inputValue)}} className="flex justify-center items-center border-2 border-[#353535] hover:bg-[#353535] text-[#353535] hover:text-white transition-colors p-3 rounded-md font-semibold uppercase">{loading ? <Loader2 className="animate-spin" /> : "Play Game"}</button>
                 </div>
             </form>
 

@@ -35,6 +35,22 @@ const Game = () => {
         <h2 className="text-2xl underline uppercase">Leaderboard</h2>
 
         <div>
+          {players &&
+            players
+              .slice() // Create a shallow copy of the array to avoid mutating the original array
+              .sort((a, b) => b.score - a.score) // Sort the array based on the score in descending order
+              .map((player) => {
+                return (
+                  <div key={player.username}>
+                    <p>
+                      {player.username} : {player.score}
+                    </p>
+                  </div>
+                );
+              })}
+        </div>
+
+        {/* <div>
           {players && players.map((player) => {
             return (
               <div key={player.username}>
@@ -42,7 +58,7 @@ const Game = () => {
               </div>
             )
           })}
-        </div>
+        </div> */}
       </div>
 
       <div className="w-[80%] h-full flex flex-col gap-8 items-center justify-center font-serif">
