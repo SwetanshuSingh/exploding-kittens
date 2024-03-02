@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useNavigate }  from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/slices/deck";
+import { Loader2 } from "lucide-react";
 
 const HomePage = () => {
 
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState('');
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
     const handleChange = (evt) => {
@@ -15,6 +17,7 @@ const HomePage = () => {
 
     const handleSubmit = async(evt, username) => {
         evt.preventDefault();
+        setLoading(true)
         const response = await fetch(`https://exploding-kittens-backend-xyi0.onrender.com/createUser/${username}`,{
             method : "POST",
             headers : {
@@ -23,6 +26,7 @@ const HomePage = () => {
         });
         const data = await response.json();
         dispatch(setUser(data));
+        setLoading(false)
         navigate("/game");
     }
 
@@ -43,7 +47,7 @@ const HomePage = () => {
                 <h2 className="text-2xl font-medium">Enter you username to play the game!</h2>
                 <div className="flex flex-col gap-4">
                     <input value={inputValue} onChange={handleChange} className="border-2 border-gray-600 rounded-md p-2 outline-none" type="text" placeholder="username..." />
-                    <button onClick={(evt) => {handleSubmit(evt, inputValue)}} className="border-2 border-[#353535] hover:bg-[#353535] text-[#353535] hover:text-white transition-colors p-3 rounded-md font-semibold uppercase">Play game</button>
+                    <button onClick={(evt) => {handleSubmit(evt, inputValue)}} className="border-2 border-[#353535] hover:bg-[#353535] text-[#353535] hover:text-white transition-colors p-3 rounded-md font-semibold uppercase">{loading ? <Loader2 className="animate-spin" /> : "Play Game"}</button>
                 </div>
             </form>
 
